@@ -122,5 +122,6 @@ class Face_Recognition_System:
 
 if __name__== "__main__":
     root=Tk() #calling root with tool kit
+    # https://github.com/UmerRais006/Face-recog
     obj=Face_Recognition_System(root)
     root.mainloop()
