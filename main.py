@@ -1,6 +1,7 @@
 from tkinter import*
 from tkinter import ttk
 from PIL import Image, ImageTk
+from student import student
 
 class Face_Recognition_System:
     def __init__(self,root):
@@ -32,10 +33,13 @@ class Face_Recognition_System:
         img2=img2.resize((180,180))
         self.photoimg2=ImageTk.PhotoImage(img2)
 
-        b1=Button(self.root,image=self.photoimg2,cursor="hand2")
-        b1.place(x=200,y=200,width=180,height=180)
-        b1_1 = Button(self.root, text="STUDENT DETAILS", cursor="hand2", font=("times new roman", 12, "bold"), bg="white", fg="#000066")
-        b1_1.place(x=200,y=355,width=180,height=40)
+        b1 = Button(self.root, command=self.student_details, image=self.photoimg2, cursor="hand2")
+        b1.place(x=200, y=200, width=180, height=180)
+
+        b1_1 = Button(self.root, command=self.student_details, text="STUDENT DETAILS", cursor="hand2", 
+              font=("times new roman", 12, "bold"), bg="white", fg="#000066")
+        b1_1.place(x=200, y=355, width=180, height=40)
+
     
 
         #face recognition
@@ -116,7 +120,11 @@ class Face_Recognition_System:
         b1.place(x=920,y=410,width=180,height=180)
         b1_1 = Button(self.root, text="EXIT", cursor="hand2", font=("times new roman", 12, "bold"), bg="white", fg="#000066")
         b1_1.place(x=920,y=570,width=180,height=40)
-    
+
+    # -------------------FUNTION BUTTONS==================================
+    def student_details(self):
+        self.new_window=Toplevel(self.root)
+        self.app=student(self.new_window)
     
 
 
