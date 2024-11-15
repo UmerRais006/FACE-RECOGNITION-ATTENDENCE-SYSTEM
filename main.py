@@ -13,7 +13,7 @@ class Face_Recognition_System:
         img=img.resize((500,110))
         self.photoimg=ImageTk.PhotoImage(img)
         
-        self.root.update()
+        self.root.update()                                                                     
         window_width = self.root.winfo_width()
         window_height = self.root.winfo_height()
 
