@@ -3,6 +3,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import messagebox
 import pymysql
+import os #for getting images
 import cv2 #more than 2500+ algorithms
 
 
@@ -500,7 +501,8 @@ class student:
                      messagebox.showinfo("Result","Generating dataset completed",parent=self.root)
                except Exception as es:
                   messagebox.showerror("ERROR", f"Due To: {str(es)}", parent=self.root)   
-
+     
+  
 
 
 if __name__== "__main__":
