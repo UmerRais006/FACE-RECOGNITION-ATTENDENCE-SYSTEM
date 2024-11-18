@@ -3,7 +3,9 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from student import student
 from train import Train
+from face_recognition import Face_Recognition
 import os
+ 
 
 class Face_Recognition_System:
     def __init__(self,root):
@@ -50,9 +52,9 @@ class Face_Recognition_System:
         img3=img3.resize((180,180))
         self.photoimg3=ImageTk.PhotoImage(img3)
 
-        b1=Button(self.root,image=self.photoimg3,cursor="hand2")
+        b1=Button(self.root,image=self.photoimg3,command=self.face_data,cursor="hand2")
         b1.place(x=440,y=200,width=180,height=180)
-        b1_1 = Button(self.root, text="FACE DETECTOR", cursor="hand2", font=("times new roman", 15, "bold"), bg="white", fg="#000066")
+        b1_1 = Button(self.root, text="FACE DETECTOR",command=self.face_data, cursor="hand2", font=("times new roman", 15, "bold"), bg="white", fg="#000066")
         b1_1.place(x=440,y=355,width=180,height=40)
 
         #ATTENDENCE
@@ -131,6 +133,10 @@ class Face_Recognition_System:
     def train_data(self):
         self.new_window=Toplevel(self.root)
         self.app=Train(self.new_window)
+    
+    def face_data(self):
+        self.new_window=Toplevel(self.root)
+        self.app=Face_Recognition(self.new_window)
         #__________OPEPNING IMAGES__________
     def open_images(self):
         os.startfile("data")
