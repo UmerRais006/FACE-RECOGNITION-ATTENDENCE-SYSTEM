@@ -71,7 +71,7 @@ class Train:
                cv2.imshow("Training",imageNp)
                cv2.waitKey(1)==13
 
-          ids=np.array(id)#id converting to numpy #88% fast performance
+          ids=np.array(ids)#id converting to numpy #88% fast performance
          # _____________train the classifier--------------
           clf=cv2.face.LBPHFaceRecognizer_create()
           clf.train(faces,ids)
