@@ -6,6 +6,8 @@ import pymysql
 import os
 import cv2
 import numpy as np
+from time import strftime #for getting time
+from datetime import datetime
 
 class Face_Recognition:
     def __init__(self, root):
@@ -71,10 +73,16 @@ class Face_Recognition:
                 d = my_cursor.fetchone()
                 d = "+".join(d) if d else "Unknown"
 
+                my_cursor.execute("SELECT Student_id FROM student WHERE Student_id=" + str(id))
+                i = my_cursor.fetchone()
+                i = "+".join(i) if i else "Unknown"
+
                 if confidence > 77:
+                    cv2.putText(img, f"Roll: {i}", (x, y - 75), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 255, 255), 3)
                     cv2.putText(img, f"Roll: {r}", (x, y - 55), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 255, 255), 3)
                     cv2.putText(img, f"Name: {n}", (x, y - 30), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 255, 255), 3)   
                     cv2.putText(img, f"Department: {d}", (x, y - 5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 255, 255), 3)
+                    self.mark_attendence(i,r,n,d)
                 else:
                     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
                     cv2.putText(img, "Unknown Face", (x, y - 5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 255, 255), 3)
@@ -103,6 +111,30 @@ class Face_Recognition:
 
         video_cap.release()
         cv2.destroyAllWindows()
+
+
+
+#_________________ATTENDENCE MARKING____________________
+    def mark_attendence(Self,i,r,n,d):
+        with open("excelSheet.csv","r+",newline='\n') as f:
+            myDataList=f.readlines()
+            name_list=[]
+            for line in myDataList:
+                entry=line.split((",")) #umer,005,cs
+                name_list.append(entry[0])
+
+            if((i not in name_list) and (r not in name_list) and (n not in name_list)and (d not in name_list) ):
+                now=datetime.now()
+                d1=now.strftime("%d/%m/%y")
+                dtString=now.strftime("%H:%M:%S")
+                f.writelines(f"\n{i},{r},{n},{d},{dtString},{d1},Present")
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     root = Tk()
